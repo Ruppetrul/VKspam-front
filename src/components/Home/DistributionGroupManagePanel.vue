@@ -26,7 +26,7 @@ const save = async () => {
 
     const response = await axios.post('api/distributions/group',
         new URLSearchParams({
-          name1: name.value,
+          name: name.value,
           description: name.value,
         }),
         {

@@ -1,6 +1,6 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import Index from './components/Index/Index.vue'
+import Login from "@/components/Index/Login.vue";
 </script>
 
 <template>
@@ -8,12 +8,12 @@ import TheWelcome from './components/TheWelcome.vue'
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <Index msg="Vk spam" />
     </div>
   </header>
 
   <main>
-    <TheWelcome />
+    <Login />
   </main>
 </template>
 

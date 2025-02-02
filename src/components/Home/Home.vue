@@ -35,6 +35,28 @@ const fetchDistributionGroups = async () => {
   }
 }
 
+const deleteGroup = async (id) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.delete(`api/distributions/group`,
+        {
+          params: {
+            id: id,
+          },
+          headers: {
+            jwt_token: token
+          }
+        })
+    if (response.status === 200) {
+      distributionGroups.value = distributionGroups.value.filter(
+          group => group.id !== id
+      )
+    }
+  } catch (err) {
+
+  }
+}
+
 onMounted(() => {
   fetchDistributionGroups();
 });
@@ -47,7 +69,7 @@ onMounted(() => {
   <p v-if="isLoading">Loading...</p>
   <ul v-else>
     <li v-for="group in distributionGroups" :key="group.id">
-      <DistributionGroup :group="group" />
+      <DistributionGroup :group="group" :deleteGroup="deleteGroup" />
     </li>
   </ul>
 </template>

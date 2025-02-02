@@ -1,6 +1,5 @@
 <script setup>
-import { defineProps } from 'vue';
-import axios from "axios";
+import {defineProps} from 'vue';
 
 const props = defineProps({
   group: {
@@ -8,35 +7,18 @@ const props = defineProps({
     id: Number,
     required: true,
   },
-})
-
-const deleteGroup = async () => {
-  try {
-    // Получаем токен из localStorage
-    const token = localStorage.getItem('token');
-    const response = await axios.delete(`api/distributions/group`,
-        {
-          params: {
-            id: props.group.id,
-          },
-          headers: {
-            jwt_token: token
-          }
-        })
-    if (response.status === 200) {
-
-    }
-  } catch (err) {
-
+  deleteGroup: {
+    type: Function,
+    required: true,
   }
-}
+})
 
 </script>
 
 <template>
   <div class="group-item">
     <H3>{{ group.name }}</H3><br>
-    <button class="delete-button" @click="deleteGroup">×</button>
+    <button class="delete-button" @click="deleteGroup(group.id)">×</button>
   </div>
 </template>
 

@@ -8,12 +8,20 @@ defineProps({
 </script>
 
 <template>
-  <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-  </div>
+    <header>
+      <img alt="Vue logo" class="logo" src="./../../assets/logo.svg" width="125" height="125" />
+
+      <div class="wrapper">
+        <h1 class="green">{{ msg }}</h1>
+      </div>
+    </header>
 </template>
 
 <style scoped>
+header {
+  text-align: center;
+}
+
 h1 {
   font-weight: 500;
   font-size: 2.6rem;

@@ -34,7 +34,7 @@ const toggleMenu = () => {
 <style scoped>
 
 .content {
-  width: 100vh;
+  width: 100vw;
 }
 
 .container {

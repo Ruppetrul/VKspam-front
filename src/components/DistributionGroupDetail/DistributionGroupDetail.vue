@@ -23,13 +23,12 @@ import {onMounted, ref} from "vue";
           }
       );
       if (response.status === 200 && response.data.success) {
-        console.log(response.data);
         distributionGroups.value = response.data.data;
       } else {
         error.value = 'Failed to fetch distribution groups';
       }
     } catch (err) {
-
+      error.value = err.message;
     } finally {
       isLoading.value = false;
     }

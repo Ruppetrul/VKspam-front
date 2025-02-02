@@ -1,6 +1,13 @@
 <script setup>
-import {ref} from 'vue';
+import {defineProps, ref} from 'vue';
 import axios from "axios";
+
+const props = defineProps({
+  addDistribution: {
+    type: Function,
+    required: true,
+  }
+})
 
 const isModalOpen = ref(false);
 
@@ -36,16 +43,13 @@ const save = async () => {
         });
 
     if (response.status === 200 && response.data.success) {
+      props.addDistribution(response.data.data)
       closeModal();
     } else {
       error.value = 'Failed to save distribution group';
     }
   } catch (err) {
-    if (err.response.data.message) {
-      error.value = err.response.data.message;
-    } else {
-      error.value = 'An error occurred: ' + err.message;
-    }
+      error.value = err.response?.data?.message ?? 'An error occurred: ' + err.message;
   }
 };
 </script>

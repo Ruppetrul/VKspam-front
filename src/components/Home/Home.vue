@@ -57,6 +57,10 @@ const deleteGroup = async (id) => {
   }
 }
 
+const addDistribution = async (distributionGroup) => {
+  distributionGroups.value.push(distributionGroup);
+}
+
 onMounted(() => {
   fetchDistributionGroups();
 });
@@ -64,7 +68,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <DistributionGroupManagePanel/>
+  <DistributionGroupManagePanel :addDistribution="addDistribution"/>
   <p v-if="error" class="error">{{ error }}</p>
   <p v-if="isLoading">Loading...</p>
   <ul v-else>

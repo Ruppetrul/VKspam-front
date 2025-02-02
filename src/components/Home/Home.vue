@@ -1,8 +1,16 @@
 <script setup>
+import DistributionGroup from "@/components/Home/DistributionGroup.vue";
+import DistributionGroupManagePanel from "@/components/Home/DistributionGroupManagePanel.vue";
 </script>
 
 <template>
-  <h1> Home! </h1>
+  <DistributionGroupManagePanel/>
+
+  <DistributionGroup/>
+  <DistributionGroup/>
+  <DistributionGroup/>
+  <DistributionGroup/>
+  <DistributionGroup/>
 </template>
 
 <style scoped>

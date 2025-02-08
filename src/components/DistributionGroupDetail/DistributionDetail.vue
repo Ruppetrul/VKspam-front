@@ -22,6 +22,7 @@ const distribution = props.distribution;
 <style scoped>
 .distribution-detail {
   padding: 5px;
+  margin-bottom: 5px;
   background-color: #bdbdbd;
 }
 </style>

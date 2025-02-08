@@ -111,11 +111,11 @@ onMounted(() => {
       </div>
       <div v-if="isModalOpen" class="modal-overlay">
         <div class="modal">
-          <h2>Новая рассылка</h2>
+          <h2>Новая рассылка VK</h2>
           <form @submit.prevent="save">
-            <h3>Название</h3>
+            <h3>Название рассылки</h3>
             <input name="name" type="text" placeholder="Группа номер 1" v-model="name"><br>
-            <h3>Ссылка</h3>
+            <h3>Ссылка на группу VK</h3>
             <input name="name" type="text" placeholder="Ссылка" v-model="url"><br><br>
             <p v-if="error" class="error">{{ error }}</p>
             <div class="modal-actions">

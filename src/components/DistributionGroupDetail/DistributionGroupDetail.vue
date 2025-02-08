@@ -47,10 +47,13 @@ onMounted(() => {
       <h1> Название: {{ distributionGroups.name }} </h1>
       <h3> Описание: {{ distributionGroups.description }} </h3>
       <br>
-      <h3>Связанные рассылки:</h3>
-      <div v-for="distribution in distributionGroups.distributions">
-        <DistributionDetail :distribution="distribution"/>
+      <div v-if="distributionGroups.distributions">
+        <h3>Связанные рассылки:</h3>
+        <div v-for="distribution in distributionGroups.distributions">
+          <DistributionDetail :distribution="distribution"/>
+        </div>
       </div>
+      <h1 v-else>Рассылок не создано</h1>
     </div>
   </div>
 </template>

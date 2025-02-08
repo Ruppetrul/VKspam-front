@@ -87,6 +87,13 @@ const fetchDistributionGroup = async (id) => {
   }
 }
 
+const deleteDistribution = (id) => {
+  const index = distributionGroup.value.distributions.findIndex(r => r.id === id);
+  if (index !== -1) {
+    distributionGroup.value.distributions.splice(index, 1);
+  }
+};
+
 onMounted(() => {
   fetchDistributionGroup(useRoute().params.id);
 });
@@ -121,7 +128,7 @@ onMounted(() => {
       <div v-if="distributionGroup.distributions">
         <h3>Связанные рассылки:</h3>
         <div v-for="distribution in distributionGroup.distributions">
-          <DistributionDetail :distribution="distribution"/>
+          <DistributionDetail :distribution="distribution" :key="distribution.id" :deleteDistribution="deleteDistribution"/>
         </div>
       </div>
       <h1 v-else>Рассылок не создано</h1>

@@ -18,7 +18,7 @@ const props = defineProps({
 <template>
   <div class="group-item">
     <router-link :to="{ name: 'group-detail', params: {id: group.id} }"><H3>{{ group.name }}</H3><br></router-link>
-    <button class="delete-button" @click="deleteGroup( group.id)">×</button>
+    <button class="delete-button" @click="deleteGroup(group.id)">×</button>
   </div>
 </template>
 

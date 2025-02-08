@@ -4,7 +4,7 @@ import DistributionGroupManagePanel from "@/components/Home/DistributionGroupMan
 import {onMounted, ref} from "vue";
 import axios from "axios";
 
-const distributionGroups = ref([]);
+const distributionGroups = ref(null);
 
 const isLoading = ref(true);
 
@@ -24,7 +24,9 @@ const fetchDistributionGroups = async () => {
     );
 
     if (response.status === 200 && response.data.success) {
-      distributionGroups.value = response.data.data;
+      if (response.data.data) {
+        distributionGroups.value = response.data.data;
+      }
     } else {
       error.value = 'Failed to fetch distribution groups';
     }
@@ -51,6 +53,9 @@ const deleteGroup = async (id) => {
       distributionGroups.value = distributionGroups.value.filter(
           group => group.id !== id
       )
+      if (distributionGroups.value.length === 0) {
+        distributionGroups.value = null;
+      }
     }
   } catch (err) {
 
@@ -58,6 +63,9 @@ const deleteGroup = async (id) => {
 }
 
 const addDistribution = async (distributionGroup) => {
+  if (null === distributionGroups.value) {
+    distributionGroups.value = [];
+  }
   distributionGroups.value.push(distributionGroup);
 }
 
@@ -69,13 +77,16 @@ onMounted(() => {
 
 <template>
   <DistributionGroupManagePanel :addDistribution="addDistribution"/>
+  <br>
   <p v-if="error" class="error">{{ error }}</p>
-  <p v-if="isLoading">Loading...</p>
-  <ul v-else>
+  <ul v-if="distributionGroups">
     <li v-for="group in distributionGroups" :key="group.id">
       <DistributionGroup :group="group" :deleteGroup="deleteGroup" />
     </li>
   </ul>
+  <div v-else>
+    <h2>Группа рассылок еще не созданы.</h2>
+  </div>
 </template>
 
 <style scoped>

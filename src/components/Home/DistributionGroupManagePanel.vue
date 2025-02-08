@@ -41,7 +41,6 @@ const save = async () => {
             jwt_token: token,
           },
         });
-
     if (response.status === 200 && response.data.success) {
       props.addDistribution(response.data.data)
       closeModal();
@@ -74,9 +73,6 @@ const save = async () => {
 </template>
 
 <style scoped>
-.distribution-group-manage-panel {
-  background-color: #ffcbcb;
-}
 
 .modal-overlay {
   position: fixed;

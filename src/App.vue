@@ -42,6 +42,7 @@ const toggleMenu = () => {
 <style scoped>
 
 .content {
+  padding: 10px;
   width: 100vw;
 }
 

@@ -2,6 +2,7 @@
 import {ref} from "vue";
 
 const isMenuExpanded = ref(false);
+const isLogin = localStorage.getItem("token");
 
 const toggleMenu = () => {
   isMenuExpanded.value = !isMenuExpanded.value;
@@ -9,7 +10,7 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" v-if='isLogin'>
     <div :class="['sidebar', { 'sidebar-expanded': isMenuExpanded }]">
       <button class="toggle-button" @click="toggleMenu">
         {{ isMenuExpanded ? '◄' : '►' }}
@@ -27,6 +28,13 @@ const toggleMenu = () => {
     </div>
     <div class="content">
       <router-view></router-view>
+    </div>
+  </div>
+  <div v-else>
+    <div class="container">
+      <div class="content">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>

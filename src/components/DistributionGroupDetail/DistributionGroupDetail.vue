@@ -131,6 +131,11 @@ const deleteDistribution = (id) => {
   }
 };
 
+const playSpam = async () => {
+  console.log('play spam start');
+  console.log('play spam end');
+}
+
 onMounted(() => {
   fetchDistributionGroup(useRoute().params.id);
 });
@@ -147,7 +152,7 @@ watchEffect(() => {
     <h1 v-if="isLoading"> Loading... </h1>
     <div v-else>
       <div id="distribution_group_panel">
-        <h1> Название: {{ distributionGroup.name }} </h1> <br>
+        <h1> Название: {{ distributionGroup.name }} </h1> <button id="play_spam" @click="playSpam">Запустить рассылку</button> <br>
         <h3> Текст рассылки: </h3>
         <textarea id="distribution_group_text" v-model="distributionGroup.description">{{distributionGroup.description}}</textarea>
         <br>
@@ -219,5 +224,10 @@ watchEffect(() => {
   margin: 10px;
   padding: 5px;
   border: #181818 1px solid;
+}
+
+#play_spam {
+  height: 10vh;
+  background-color: lawngreen;
 }
 </style>

@@ -14,11 +14,43 @@ const distributionGroup = ref([]);
 const isModalOpen = ref(false);
 
 const openModal = () => {
-  isModalOpen.value = true;
+  isModalOpen.value = !isModalOpen.value;
 }
 
 const closeModal = () => {
   isModalOpen.value = false;
+}
+
+const saveDescriptionText = async () => {
+  try {
+    const token = localStorage.getItem('token');
+
+    const data = {
+      id: distributionGroupId,
+      name: distributionGroup.value.name,
+      description: distributionGroup.value.description,
+    }
+
+    const response = await axios.put(
+        '/api/distributions/group',
+        new URLSearchParams(data),
+      {
+        headers: {
+          jwt_token: token,
+        },
+    }
+    );
+    if (response.status === 200 && response.data.success) {
+      distributionGroup.value.description = response.data.data.description;
+    } else {
+      error.value = 'Failed to fetch distribution groups';
+    }
+  } catch (err) {
+    console.log(err);
+    error.value = err.message;
+  } finally {
+    //isLoading.value = false;
+  }
 }
 
 const save = async () => {
@@ -103,11 +135,18 @@ onMounted(() => {
   <div class="distribution-group">
     <h1 v-if="isLoading"> Loading... </h1>
     <div v-else>
-      <h1> Название: {{ distributionGroup.name }} </h1>
-      <h3> Описание: {{ distributionGroup.description }} </h3>
+      <div id="distribution_group_panel">
+        <h1> Название: {{ distributionGroup.name }} </h1> <br>
+        <h3> Текст рассылки: </h3>
+        <textarea id="distribution_group_text" v-model="distributionGroup.description">{{distributionGroup.description}}</textarea>
+        <button @click="saveDescriptionText">Сохранить текст</button>
+      </div>
       <br>
-      <div class="distribution-manage-panel">
-        <button @click="openModal">Создать рассылку</button>
+      <div id="distribution_group_list_header">
+        <h3>Связанные рассылки:</h3>
+        <div class="distribution-manage-panel">
+          <button @click="openModal">Создать рассылку</button>
+        </div>
       </div>
       <div v-if="isModalOpen" class="modal-overlay">
         <div class="modal">
@@ -126,7 +165,6 @@ onMounted(() => {
         </div>
       </div>
       <div v-if="distributionGroup.distributions">
-        <h3>Связанные рассылки:</h3>
         <div v-for="distribution in distributionGroup.distributions">
           <DistributionDetail :distribution="distribution" :key="distribution.id" :deleteDistribution="deleteDistribution"/>
         </div>
@@ -137,6 +175,19 @@ onMounted(() => {
 </template>
 
 <style scoped>
+#distribution_group_text {
+  width: 100vh;
+  resize: none;
+  height: auto;
+  max-height: 15em;
+  line-height: 1.5;
+  min-height: 7em;
+}
+
+#distribution_group_panel, #distribution_group_list_header{
+  margin-bottom: 10px;
+}
+
 .distribution-group {
   margin: 10px;
 }

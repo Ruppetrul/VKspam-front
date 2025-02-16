@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watchEffect} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
 import DistributionDetail from "@/components/DistributionGroupDetail/DistributionDetail.vue";
@@ -29,7 +29,7 @@ const saveDescriptionText = async () => {
       id: distributionGroupId,
       name: distributionGroup.value.name,
       description: distributionGroup.value.description,
-      sex: distributionGroup.value.sex,
+      sex: selectedSex.value,
       only_birthday_today: distributionGroup.value.only_birthday_today,
     }
 
@@ -131,6 +131,13 @@ const deleteDistribution = (id) => {
 onMounted(() => {
   fetchDistributionGroup(useRoute().params.id);
 });
+
+const selectedSex = ref(distributionGroup.value.sex);
+
+watchEffect(() => {
+  selectedSex.value = distributionGroup.value.sex;
+});
+
 </script>
 
 <template>
@@ -143,9 +150,9 @@ onMounted(() => {
         <textarea id="distribution_group_text" v-model="distributionGroup.description">{{distributionGroup.description}}</textarea>
         <br>
         <h3>Пол:</h3>
-        <input name="sex" type="radio" value="1"><b> M </b><br>
-        <input name="sex" type="radio" value="2"><b> Ж </b><br>
-        <input name="sex" type="radio" value="0"><b> Любой </b><br>
+        <input name="sex" type="radio" v-model="selectedSex" value="1"><b> M </b><br>
+        <input name="sex" type="radio" v-model="selectedSex" value="2"><b> Ж </b><br>
+        <input name="sex" type="radio" v-model="selectedSex" value="0"><b> Любой </b><br>
         <br>
         <b>Только тем, у кого день рождения сегодня:</b> <input name="only_birthday_today" type="checkbox" value="W"><br><br>
         <button @click="saveDescriptionText">Сохранить настройки</button>

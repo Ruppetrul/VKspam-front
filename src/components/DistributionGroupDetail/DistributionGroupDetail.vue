@@ -13,6 +13,9 @@ const url = ref('');
 const distributionGroup = ref([]);
 const isModalOpen = ref(false);
 
+const selectedSex = ref(distributionGroup.value.sex);
+const onlyBirthdayToday = ref(distributionGroup.value.only_birthday_today);
+
 const openModal = () => {
   isModalOpen.value = !isModalOpen.value;
 }
@@ -30,7 +33,7 @@ const saveDescriptionText = async () => {
       name: distributionGroup.value.name,
       description: distributionGroup.value.description,
       sex: selectedSex.value,
-      only_birthday_today: distributionGroup.value.only_birthday_today,
+      only_birthday_today: onlyBirthdayToday.value,
     }
 
     const response = await axios.put(
@@ -132,10 +135,9 @@ onMounted(() => {
   fetchDistributionGroup(useRoute().params.id);
 });
 
-const selectedSex = ref(distributionGroup.value.sex);
-
 watchEffect(() => {
   selectedSex.value = distributionGroup.value.sex;
+  onlyBirthdayToday.value = distributionGroup.value.only_birthday_today;
 });
 
 </script>
@@ -154,7 +156,7 @@ watchEffect(() => {
         <input name="sex" type="radio" v-model="selectedSex" value="2"><b> Ж </b><br>
         <input name="sex" type="radio" v-model="selectedSex" value="0"><b> Любой </b><br>
         <br>
-        <b>Только тем, у кого день рождения сегодня:</b> <input name="only_birthday_today" type="checkbox" value="W"><br><br>
+        <b>Только тем, у кого день рождения сегодня:</b> <input name="only_birthday_today" type="checkbox" v-model="onlyBirthdayToday" value="W"><br><br>
         <button @click="saveDescriptionText">Сохранить настройки</button>
       </div>
       <div id="distribution_group_list_header">

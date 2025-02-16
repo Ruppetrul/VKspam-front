@@ -3,6 +3,7 @@ import {onMounted, ref, watchEffect} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
 import DistributionDetail from "@/components/DistributionGroupDetail/DistributionDetail.vue";
+import {sexs} from "@/js/sexs.js";
 
 const distributionGroupId = useRoute().params.id;
 
@@ -156,7 +157,7 @@ watchEffect(() => {
         <h3> Текст рассылки: </h3>
         <textarea id="distribution_group_text" v-model="distributionGroup.description">{{distributionGroup.description}}</textarea>
         <br>
-        <h3>Пол:</h3>
+        <h3>Пол: {{ sexs[distributionGroup.sex] }}</h3>
         <input name="sex" type="radio" v-model="selectedSex" value="1"><b> M </b><br>
         <input name="sex" type="radio" v-model="selectedSex" value="2"><b> Ж </b><br>
         <input name="sex" type="radio" v-model="selectedSex" value="0"><b> Любой </b><br>

@@ -1,9 +1,10 @@
 <script setup>
-import {defineProps, ref} from "vue";
+import {defineProps, onMounted, ref} from "vue";
 import {runSpam} from "@/js/runSpam.js";
 import {getProgress} from "@/js/getProgress.js";
 
 const isRunning = ref(false);
+const isError = ref(false);
 const progress = ref(0);
 
 const props = defineProps({
@@ -30,9 +31,38 @@ const handleRunClick = () => {
 
   const interval = setInterval(async function () {
     progress.value = await getProgress(props.group.id);
-    if (progress.value < 0 || progress.value === 100) clearInterval(interval);
+
+    switch (props.group.id) {
+      case -1:
+        isError.value = false;
+        isRunning.value = false;
+        clearInterval(interval);
+        break
+      case -2:
+        isError.value = true;
+        clearInterval(interval);
+        break;
+      case 100:
+        isRunning.value = false;
+        clearInterval(interval);
+        break;
+    }
   }, 1000)
 };
+
+onMounted(async () => {
+  var value = await getProgress(props.group.id);
+  if (value > -1) {
+    isRunning.value = true;
+    const interval = setInterval(async function () {
+      progress.value = await getProgress(props.group.id);
+      if (progress.value < 0 || progress.value === 100) {
+        clearInterval(interval);
+        isRunning.value = false;
+      }
+    }, 1000)
+  }
+});
 </script>
 
 <template>

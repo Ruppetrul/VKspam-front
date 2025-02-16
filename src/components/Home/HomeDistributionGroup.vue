@@ -1,5 +1,8 @@
 <script setup>
-import { defineProps } from "vue";
+import {defineProps, ref} from "vue";
+import {runSpam} from "@/js/runSpam.js";
+
+const isRunning = ref(false);
 
 const props = defineProps({
   group: {
@@ -19,6 +22,8 @@ const sexs = {
 };
 
 const handleRunClick = () => {
+  runSpam(props.group.id)
+  isRunning.value = true
   console.log("Кнопка 'Запустить' нажата!");
 };
 </script>
@@ -32,7 +37,10 @@ const handleRunClick = () => {
       <h5>Пол: {{ sexs[group.sex] }}</h5>
     </div>
 
-    <button class="run-button" @click="handleRunClick">Запустить</button>
+    <button v-if="!isRunning" class="run-button" @click="handleRunClick">Запустить</button>
+    <div v-else>
+      <h1> Running ! </h1>
+    </div>
   </div>
 </template>
 

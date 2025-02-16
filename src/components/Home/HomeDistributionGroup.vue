@@ -47,7 +47,7 @@ const handleRunClick = () => {
         clearInterval(interval);
         break;
     }
-  }, 1000)
+  }, 3000)
 };
 
 onMounted(async () => {
@@ -60,7 +60,7 @@ onMounted(async () => {
         clearInterval(interval);
         isRunning.value = false;
       }
-    }, 1000)
+    }, 3000)
   }
 });
 </script>

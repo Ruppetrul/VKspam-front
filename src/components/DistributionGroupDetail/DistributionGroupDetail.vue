@@ -29,6 +29,8 @@ const saveDescriptionText = async () => {
       id: distributionGroupId,
       name: distributionGroup.value.name,
       description: distributionGroup.value.description,
+      sex: distributionGroup.value.sex,
+      only_birthday_today: distributionGroup.value.only_birthday_today,
     }
 
     const response = await axios.put(
@@ -139,9 +141,15 @@ onMounted(() => {
         <h1> Название: {{ distributionGroup.name }} </h1> <br>
         <h3> Текст рассылки: </h3>
         <textarea id="distribution_group_text" v-model="distributionGroup.description">{{distributionGroup.description}}</textarea>
-        <button @click="saveDescriptionText">Сохранить текст</button>
+        <br>
+        <h3>Пол:</h3>
+        <input name="sex" type="radio" value="1"><b> M </b><br>
+        <input name="sex" type="radio" value="2"><b> Ж </b><br>
+        <input name="sex" type="radio" value="0"><b> Любой </b><br>
+        <br>
+        <b>Только тем, у кого день рождения сегодня:</b> <input name="only_birthday_today" type="checkbox" value="W"><br><br>
+        <button @click="saveDescriptionText">Сохранить настройки</button>
       </div>
-      <br>
       <div id="distribution_group_list_header">
         <h3>Связанные рассылки:</h3>
         <div class="distribution-manage-panel">
@@ -184,8 +192,14 @@ onMounted(() => {
   min-height: 7em;
 }
 
-#distribution_group_panel, #distribution_group_list_header{
+#distribution_group_panel {
+  padding-bottom: 10px;
+  border-bottom-style: inset;
+}
+
+#distribution_group_list_header{
   margin-bottom: 10px;
+  padding-top: 10px;
 }
 
 .distribution-group {

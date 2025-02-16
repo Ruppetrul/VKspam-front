@@ -158,8 +158,8 @@ watchEffect(() => {
         <textarea id="distribution_group_text" v-model="distributionGroup.description">{{distributionGroup.description}}</textarea>
         <br>
         <h3>Пол: {{ sexs[distributionGroup.sex] }}</h3>
-        <input name="sex" type="radio" v-model="selectedSex" value="1"><b> M </b><br>
-        <input name="sex" type="radio" v-model="selectedSex" value="2"><b> Ж </b><br>
+        <input name="sex" type="radio" v-model="selectedSex" value="1"><b> Ж </b><br>
+        <input name="sex" type="radio" v-model="selectedSex" value="2"><b> М </b><br>
         <input name="sex" type="radio" v-model="selectedSex" value="0"><b> Любой </b><br>
         <br>
         <b>Только тем, у кого день рождения сегодня:</b> <input name="only_birthday_today" type="checkbox" v-model="onlyBirthdayToday" value="W"><br><br>

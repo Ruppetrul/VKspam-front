@@ -44,7 +44,6 @@ const deleteDistributionLocal = async (id) => {
     <div>
       <h2>Name: {{distribution.name}}</h2>
       <h3>Url: {{distribution.url}}</h3>
-      <h3>Url: {{distribution.url}}</h3>
     </div>
 
     <button class="delete-button" @click="deleteDistributionLocal(distribution.id)">×</button>

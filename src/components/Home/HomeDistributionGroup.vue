@@ -1,8 +1,10 @@
 <script setup>
 import {defineProps, ref} from "vue";
 import {runSpam} from "@/js/runSpam.js";
+import {getProgress} from "@/js/getProgress.js";
 
 const isRunning = ref(false);
+const progress = ref(0);
 
 const props = defineProps({
   group: {
@@ -24,7 +26,12 @@ const sexs = {
 const handleRunClick = () => {
   runSpam(props.group.id)
   isRunning.value = true
-  console.log("Кнопка 'Запустить' нажата!");
+  progress.value = 0
+
+  const interval = setInterval(async function () {
+    progress.value = await getProgress(props.group.id);
+    if (progress.value < 0 || progress.value === 100) clearInterval(interval);
+  }, 1000)
 };
 </script>
 
@@ -39,7 +46,11 @@ const handleRunClick = () => {
 
     <button v-if="!isRunning" class="run-button" @click="handleRunClick">Запустить</button>
     <div v-else>
-      <h1> Running ! </h1>
+      <div v-if="progress === -2">
+        <h1>Ошибка.</h1>
+        <button class="run-button" @click="handleRunClick">Попробовать еще раз.</button>
+      </div>
+      <h1 v-else> Прогресс: {{progress}} %. </h1>
     </div>
   </div>
 </template>

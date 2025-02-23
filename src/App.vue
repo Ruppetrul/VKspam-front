@@ -62,6 +62,11 @@ const toggleMenu = () => {
   width: 60px;
   background-color: #ffdb56;
 }
+
+.sidebar-expanded {
+  width: 200px;
+}
+
 .menu {
   padding-left: 15px;
 }

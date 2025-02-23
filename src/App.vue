@@ -68,8 +68,7 @@ const toggleMenu = () => {
 }
 
 .menu {
-  list-style: none;
-  padding: 15px;
+  padding-left: 15px;
 }
 
 .toggle-button {

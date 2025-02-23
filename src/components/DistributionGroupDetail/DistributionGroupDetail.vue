@@ -88,6 +88,9 @@ const save = async () => {
         });
 
     if (response.status === 201 && response.data.success) {
+      if (!distributionGroup.value.distributions) {
+        distributionGroup.value.distributions = [];
+      }
       distributionGroup.value.distributions.push(response.data.data)
       closeModal();
     } else {

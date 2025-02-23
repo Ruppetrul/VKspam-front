@@ -1,8 +1,9 @@
 <script setup>
 import {ref} from "vue";
+import {useRoute} from "vue-router";
 
 const isMenuExpanded = ref(false);
-const isLogin = localStorage.getItem("token");
+const route = useRoute(); // Получаем текущий маршрут
 
 const toggleMenu = () => {
   isMenuExpanded.value = !isMenuExpanded.value;
@@ -10,7 +11,7 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <div class="container" v-if='isLogin'>
+  <div class="container" v-if="route.path !== '/'">
     <div :class="['sidebar', { 'sidebar-expanded': isMenuExpanded }]">
       <button class="toggle-button" @click="toggleMenu">
         {{ isMenuExpanded ? '◄' : '►' }}

@@ -1,35 +1,17 @@
 import axios from "axios";
 
 export async function runSpam(groupId) {
-    var result = null;
-   // var error = null;
-    try {
-        const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-        const response = await axios.post(
-            'api/distributions/run',
-            new URLSearchParams({
-                'group_id': groupId
-            }),
-            {
-                headers: {
-                    jwt_token: token,
-                },
-            }
-        );
-
-        if (response.status === 200 && response.data.success) {
-            if (response.data.data) {
-                result = response.data.data;
-            }
-        } else {
-           // error = 'Failed to fetch distribution groups';
+    return await axios.post(
+        'api/distributions/run',
+        new URLSearchParams({
+            'group_id': groupId
+        }),
+        {
+            headers: {
+                jwt_token: token,
+            },
         }
-    } catch (err) {
-       // error = err.message;
-    } finally {
-        //isLoading.value = false;
-    }
-
-    return result
+    );
 }

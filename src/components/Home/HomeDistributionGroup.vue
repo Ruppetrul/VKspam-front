@@ -24,22 +24,30 @@ const sexs = {
   2: "Женщины",
 };
 
-const handleRunClick = () => {
-  runSpam(props.group.id)
+const handleRunClick = async () => {
+  try {
+    const response = await runSpam(props.group.id)
+    if (response.status !== 200) {
+      isError.value = true;
+      isRunning.value = false;
+      return;
+    }
+  } catch (error) {
+    isError.value = true;
+    isRunning.value = false;
+    return;
+  }
+
   isRunning.value = true
   progress.value = 0
 
   const interval = setInterval(async function () {
     progress.value = await getProgress(props.group.id);
 
-    switch (props.group.id) {
-      case -1:
-        isError.value = false;
-        isRunning.value = false;
-        clearInterval(interval);
-        break
+    switch (progress.value) {
       case -2:
         isError.value = true;
+        isRunning.value = true;
         clearInterval(interval);
         break;
       case 100:

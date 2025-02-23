@@ -14,9 +14,14 @@ onMounted(async () => {
 
 <template>
 <h1 v-if="isLoading">Загрузка...</h1>
-<div v-else-if="!isLoading">
-  <div id="distributionGroups" v-for="distributionGroup in distributionGroups">
-    <HomeDistributionGroup :group="distributionGroup"></HomeDistributionGroup>
+<div v-else>
+  <div v-if="distributionGroups">
+    <div id="distributionGroups" v-for="distributionGroup in distributionGroups">
+      <HomeDistributionGroup :group="distributionGroup"></HomeDistributionGroup>
+    </div>
+  </div>
+  <div v-else>
+    <h1>Группы рассылок еще не созданы :(</h1>
   </div>
 </div>
 </template>

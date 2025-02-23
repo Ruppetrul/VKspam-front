@@ -89,4 +89,9 @@ const toggleMenu = () => {
   display: flex;
   align-items: center;
 }
+
+.toggle-button {
+  padding: 15px;
+}
+
 </style>

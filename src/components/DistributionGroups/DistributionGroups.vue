@@ -18,7 +18,7 @@ const fetchDistributionGroups = async () => {
         'api/distributions/group/list',
         {
           headers: {
-            jwt_token: token,
+            'jwt-token': token,
           },
         }
     );
@@ -46,7 +46,7 @@ const deleteGroup = async (id) => {
             id: id,
           },
           headers: {
-            jwt_token: token
+            'jwt-token': token
           }
         })
     if (response.status === 200) {

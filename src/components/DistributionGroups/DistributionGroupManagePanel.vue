@@ -43,7 +43,7 @@ const save = async () => {
         }),
         {
           headers: {
-            jwt_token: token,
+            'jwt-token': token,
           },
         });
     if (response.status === 200 && response.data.success) {

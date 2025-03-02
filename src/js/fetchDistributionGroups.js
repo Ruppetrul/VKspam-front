@@ -10,7 +10,7 @@ export async function fetchDistributionGroups() {
             'api/distributions/group/list',
             {
                 headers: {
-                    jwt_token: token,
+                    'jwt-token': token,
                 },
             }
         );

@@ -26,7 +26,7 @@ const deleteDistributionLocal = async (id) => {
             id: id,
           },
           headers: {
-            jwt_token: token,
+            'jwt-token': token,
           },
         });
 

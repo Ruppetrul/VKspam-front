@@ -12,7 +12,7 @@ export async function getProgress(groupId) {
             }),
             {
                 headers: {
-                    jwt_token: token,
+                    'jwt-token': token,
                 },
             }
         );

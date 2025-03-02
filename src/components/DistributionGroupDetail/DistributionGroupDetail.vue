@@ -42,7 +42,7 @@ const saveDescriptionText = async () => {
         new URLSearchParams(data),
       {
         headers: {
-          jwt_token: token,
+          'jwt-token': token,
         },
     }
     );
@@ -83,7 +83,7 @@ const save = async () => {
         }),
         {
           headers: {
-            jwt_token: token,
+            'jwt-token': token,
           },
         });
 
@@ -112,7 +112,7 @@ const fetchDistributionGroup = async (id) => {
             id: id,
           },
           headers: {
-            jwt_token: token,
+            'jwt-token': token,
           },
         }
     );

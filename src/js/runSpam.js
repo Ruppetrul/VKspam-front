@@ -10,7 +10,7 @@ export async function runSpam(groupId) {
         }),
         {
             headers: {
-                jwt_token: token,
+                'jwt-token': token,
             },
         }
     );

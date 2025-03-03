@@ -149,6 +149,7 @@ onMounted(() => {
 watchEffect(() => {
   selectedSex.value = distributionGroup.value.sex;
   onlyBirthdayToday.value = distributionGroup.value.only_birthday_today;
+  onlyBirthdayFriends.value = distributionGroup.value.only_birthday_friends;
 });
 
 </script>
@@ -167,8 +168,8 @@ watchEffect(() => {
         <input name="sex" type="radio" v-model="selectedSex" value="2"><b> М </b><br>
         <input name="sex" type="radio" v-model="selectedSex" value="0"><b> Любой </b><br>
         <br>
-        <b>Только тем, у кого день рождения сегодня:</b> <input name="only_birthday_today" type="checkbox" v-model="onlyBirthdayToday" value="W"><br><br>
-        <b>Только друзьям именинника:</b> <input name="only_birthday_friends" type="checkbox" v-model="onlyBirthdayFriends" value="W"><br><br>
+        <b>Только тем, у кого день рождения сегодня:</b> <input name="birthday_filters" type="checkbox" v-model="onlyBirthdayToday"><br><br>
+        <b>Только друзьям именинника:</b> <input name="birthday_filters" type="checkbox" v-model="onlyBirthdayFriends"><br><br>
         <button @click="saveDescriptionText">Сохранить настройки</button>
       </div>
       <div id="distribution_group_list_header">

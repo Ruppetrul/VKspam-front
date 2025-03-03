@@ -16,6 +16,7 @@ const isModalOpen = ref(false);
 
 const selectedSex = ref(distributionGroup.value.sex);
 const onlyBirthdayToday = ref(distributionGroup.value.only_birthday_today);
+const onlyBirthdayFriends = ref(distributionGroup.value.only_birthday_friends);
 
 const openModal = () => {
   isModalOpen.value = !isModalOpen.value;
@@ -35,6 +36,7 @@ const saveDescriptionText = async () => {
       description: distributionGroup.value.description,
       sex: selectedSex.value,
       only_birthday_today: onlyBirthdayToday.value,
+      only_birthday_friends: onlyBirthdayFriends.value,
     }
 
     const response = await axios.put(
@@ -166,6 +168,7 @@ watchEffect(() => {
         <input name="sex" type="radio" v-model="selectedSex" value="0"><b> Любой </b><br>
         <br>
         <b>Только тем, у кого день рождения сегодня:</b> <input name="only_birthday_today" type="checkbox" v-model="onlyBirthdayToday" value="W"><br><br>
+        <b>Только друзьям именинника:</b> <input name="only_birthday_friends" type="checkbox" v-model="onlyBirthdayFriends" value="W"><br><br>
         <button @click="saveDescriptionText">Сохранить настройки</button>
       </div>
       <div id="distribution_group_list_header">

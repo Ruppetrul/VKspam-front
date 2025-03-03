@@ -13,6 +13,7 @@ const isModalOpen = ref(false);
 
 const selectedSex = ref(0);
 const onlyBirthdayToday = ref(0);
+const onlyBirthdayFriends = ref(0);
 
 const openModal = () => {
   isModalOpen.value = true;
@@ -39,7 +40,8 @@ const save = async () => {
           name: name.value,
           description: name.value,
           sex: selectedSex.value,
-          only_birthday_today: onlyBirthdayToday.value
+          only_birthday_today: onlyBirthdayToday.value,
+          only_birthday_friends: onlyBirthdayFriends.value,
         }),
         {
           headers: {
@@ -71,8 +73,10 @@ const save = async () => {
         <input name="sex" type="radio" v-model="selectedSex" value="1"><b> Ж </b><br>
         <input name="sex" type="radio" v-model="selectedSex" value="2"><b> М </b><br>
         <input name="sex" type="radio" v-model="selectedSex" value="0"><b> Любой </b><br>
-        <h3>Только у кого день рождения:</h3>
-        <input name="sex" type="checkbox" v-model="onlyBirthdayToday" value="0"><br>
+        <h3>Рассылка именинникам:</h3>
+        <input name="birthday" type="radio" v-model="onlyBirthdayToday" value="0"><br>
+        <h3>Рассылка друзьям именинника (лучше делать заблаговременно):</h3>
+        <input name="birthday" type="radio" v-model="onlyBirthdayFriends" value="0"><br>
         <p v-if="error" class="error">{{ error }}</p>
         <div class="modal-actions">
           <button @click="closeModal">Отмена</button>

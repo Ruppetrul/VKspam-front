@@ -184,7 +184,7 @@ watchEffect(() => {
           <form @submit.prevent="save">
             <h3>Название рассылки</h3>
             <input name="name" type="text" placeholder="Группа номер 1" v-model="name"><br>
-            <h3>Ссылка на группу VK</h3>
+            <h3>Id группы в VK (например testnautyg)</h3>
             <input name="name" type="text" placeholder="Ссылка" v-model="url"><br><br>
             <p v-if="error" class="error">{{ error }}</p>
             <div class="modal-actions">

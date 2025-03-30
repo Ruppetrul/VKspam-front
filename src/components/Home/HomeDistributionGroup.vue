@@ -7,6 +7,7 @@ const isRunning = ref(false);
 const isError = ref(false);
 const progress = ref(0);
 const message = ref("");
+const todayProcessed = ref(false);
 
 const props = defineProps({
   group: {
@@ -16,6 +17,7 @@ const props = defineProps({
     required: true,
     only_birthday_today: Boolean,
     sex: Number,
+    last_processing: String,
   },
 });
 
@@ -69,6 +71,14 @@ const handleRunClick = async () => {
 };
 
 onMounted(async () => {
+  const processingDate = new Date(props.group.last_processing);
+  const today = new Date();
+
+  todayProcessed.value =
+      processingDate.getFullYear() === today.getFullYear() &&
+      processingDate.getMonth() === today.getMonth() &&
+      processingDate.getDate() === today.getDate();
+
   var value = await getProgress(props.group.id);
   if (value > -1) {
     isRunning.value = true;
@@ -90,18 +100,24 @@ onMounted(async () => {
       <h5>Текст: {{ group.description }}</h5>
       <h5>Только у кого ДР: {{ group.only_birthday_today }}</h5>
       <h5>Пол: {{ sexs[group.sex] }}</h5>
+      <h5> Последняя обработка: {{group.last_processing}} </h5>
     </div>
 
-    <button v-if="!isRunning" class="run-button" @click="handleRunClick">Запустить</button>
-    <div v-else>
-      <div v-if="progress === -2">
-        <h1>Ошибка.</h1>
-        <button class="run-button" @click="handleRunClick">Попробовать еще раз.</button>
-      </div>
+    <div v-if="!todayProcessed">
+      <button v-if="!isRunning" class="run-button" @click="handleRunClick">Запустить</button>
       <div v-else>
-        <h1> Прогресс: {{progress}} %. </h1>
-        <h3 v-if="message"> Инфо: {{message}} </h3>
+        <div v-if="progress === -2">
+          <h1>Ошибка.</h1>
+          <button class="run-button" @click="handleRunClick">Попробовать еще раз.</button>
+        </div>
+        <div v-else>
+          <h1> Прогресс: {{progress}} %. </h1>
+          <h3 v-if="message"> Инфо: {{message}} </h3>
+        </div>
       </div>
+    </div>
+    <div v-else>
+      <h4> Сегодня уже производилась рассылка </h4>
     </div>
   </div>
 </template>

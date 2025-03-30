@@ -6,6 +6,7 @@ import {getProgress} from "@/js/getProgress.js";
 const isRunning = ref(false);
 const isError = ref(false);
 const progress = ref(0);
+const message = ref("");
 
 const props = defineProps({
   group: {
@@ -40,9 +41,13 @@ const handleRunClick = async () => {
 
   isRunning.value = true
   progress.value = 0
+  message.value = ""
 
   const interval = setInterval(async function () {
-    progress.value = await getProgress(props.group.id);
+    const result = await getProgress(props.group.id);
+
+    progress.value = result.Progress;
+    message.value = result.Message;
 
     switch (progress.value) {
       case -2:
@@ -88,7 +93,10 @@ onMounted(async () => {
         <h1>Ошибка.</h1>
         <button class="run-button" @click="handleRunClick">Попробовать еще раз.</button>
       </div>
-      <h1 v-else> Прогресс: {{progress}} %. </h1>
+      <div v-else>
+        <h1> Прогресс: {{progress}} %. </h1>
+        <h3 v-if="message"> Инфо: {{message}} </h3>
+      </div>
     </div>
   </div>
 </template>

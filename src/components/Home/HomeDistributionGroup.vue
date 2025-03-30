@@ -100,7 +100,7 @@ onMounted(async () => {
       <h5>Текст: {{ group.description }}</h5>
       <h5>Только у кого ДР: {{ group.only_birthday_today }}</h5>
       <h5>Пол: {{ sexs[group.sex] }}</h5>
-      <h5> Последняя обработка: {{group.last_processing}} </h5>
+      <h5> Последняя рассылка: {{group.last_processing}} </h5>
     </div>
 
     <div v-if="!todayProcessed">

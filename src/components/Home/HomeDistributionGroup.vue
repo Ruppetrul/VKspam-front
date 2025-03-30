@@ -55,6 +55,11 @@ const handleRunClick = async () => {
         isRunning.value = true;
         clearInterval(interval);
         break;
+      case -1:
+        isError.value = false;
+        isRunning.value = false;
+        clearInterval(interval);
+        break;
       case 100:
         isRunning.value = false;
         clearInterval(interval);

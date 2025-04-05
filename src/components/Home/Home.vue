@@ -46,7 +46,7 @@ const deleteGroup = async (id) => {
   <div id="distribution_group_list_header">
     <h3>Связанные рассылки:</h3>
     <div class="distribution-manage-panel">
-      <button v-if="!showModal" @click="showModal = true" @close="showModal = false">Создать рассылку</button>
+      <button id="createDistributionsButton" v-if="!showModal" @click="showModal = true" @close="showModal = false">Создать рассылку</button>
       <DistributionGroupEditPanel v-else :isOpen="showModal" @close="showModal = false" :addDistributionGroup="addDistribution"/>
     </div>
   </div>
@@ -63,5 +63,20 @@ const deleteGroup = async (id) => {
 </template>
 
 <style scoped>
+  #createDistributionsButton {
+    border: none;
+    background: blue;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 
+  #createDistributionsButton:hover {
+    background: darkblue;
+  }
+
+  #createDistributionsButton:active {
+    background: darkblue;
+  }
 </style>

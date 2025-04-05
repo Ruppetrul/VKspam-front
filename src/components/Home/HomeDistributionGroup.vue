@@ -2,6 +2,7 @@
 import {defineProps, onMounted, ref} from "vue";
 import {runSpam} from "@/js/runSpam.js";
 import {getProgress} from "@/js/getProgress.js";
+import {showToast} from "@/js/toast.js";
 
 const isRunning = ref(false);
 const isError = ref(false);
@@ -34,11 +35,13 @@ const handleRunClick = async () => {
     if (response.status !== 200) {
       isError.value = true;
       isRunning.value = false;
+      showToast('Test message')
       return;
     }
   } catch (error) {
     isError.value = true;
     isRunning.value = false;
+    showToast('Test message')
     return;
   }
 

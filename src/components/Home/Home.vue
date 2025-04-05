@@ -42,7 +42,7 @@ const deleteGroup = async (id) => {
 
 <template>
 <h1 v-if="isLoading">Загрузка...</h1>
-<div v-else>
+<div id="distribution_group_list_body" v-else>
   <div id="distribution_group_list_header">
     <h3>Связанные рассылки:</h3>
     <div class="distribution-manage-panel">
@@ -78,5 +78,9 @@ const deleteGroup = async (id) => {
 
   #createDistributionsButton:active {
     background: darkblue;
+  }
+
+  #distribution_group_list_body {
+    height: 100%;
   }
 </style>

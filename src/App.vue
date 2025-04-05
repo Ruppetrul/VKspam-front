@@ -19,12 +19,12 @@ const toggleMenu = () => {
       <ul class="menu">
         <li class="menu-item">
           <router-link :to="{ name: 'home' }">
-            <span v-if="isMenuExpanded">Главная</span>
+            <span class="sidebar-item" v-if="isMenuExpanded">Главная</span>
           </router-link>
         </li>
         <li class="menu-item">
           <router-link :to="{ name: 'logout' }">
-            <span v-if="isMenuExpanded">Выйти</span>
+            <span class="sidebar-item" v-if="isMenuExpanded">Выйти</span>
           </router-link>
         </li>
       </ul>
@@ -57,7 +57,7 @@ const toggleMenu = () => {
 
 .sidebar {
   width: 60px;
-  background-color: #ffdb56;
+  background-color: lightgreen;
 }
 
 .sidebar-expanded {
@@ -85,6 +85,11 @@ const toggleMenu = () => {
 
 .toggle-button {
   padding: 15px;
+}
+
+.sidebar-item {
+  font-size: 18px;
+  color: white;
 }
 
 </style>

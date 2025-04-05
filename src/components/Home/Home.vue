@@ -65,7 +65,7 @@ const deleteGroup = async (id) => {
 <style scoped>
   #createDistributionsButton {
     border: none;
-    background: blue;
+    background: green;
     padding: 10px 20px;
     font-size: 16px;
     border-radius: 5px;
@@ -73,11 +73,11 @@ const deleteGroup = async (id) => {
   }
 
   #createDistributionsButton:hover {
-    background: darkblue;
+    background: darkgreen;
   }
 
   #createDistributionsButton:active {
-    background: darkblue;
+    background: green;
   }
 
   #distribution_group_list_body {

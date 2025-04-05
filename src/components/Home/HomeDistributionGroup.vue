@@ -101,25 +101,24 @@ onMounted(async () => {
       <h5>Текст: {{ group.description }}</h5>
       <h5>Только у кого ДР: {{ group.only_birthday_today }}</h5>
       <h5>Пол: {{ sexs[group.sex] }}</h5>
-      <h5> Последняя рассылка: {{group.last_processing}} </h5>
+      <h5>Последняя рассылка: {{group.last_processing}} </h5>
     </div>
 
-    <button class="delete-button" @click="props.delete(group.id)">×</button>
-    <div v-if="!todayProcessed">
-      <button v-if="!isRunning" class="run-button" @click="handleRunClick">Запустить</button>
-      <div v-else>
-        <div v-if="progress === -2">
-          <h1>Ошибка.</h1>
-          <button class="run-button" @click="handleRunClick">Попробовать еще раз.</button>
-        </div>
+    <div class="action-buttons">
+      <button class="delete-button" @click="props.delete(group.id)">
+Удалить
+      </button>
+        <button v-if="!isRunning && !todayProcessed" class="run-button" @click="handleRunClick">Запустить</button>
         <div v-else>
-          <h1> Прогресс: {{progress}} %. </h1>
-          <h3 v-if="message"> Инфо: {{message}} </h3>
+          <div v-if="progress === -2">
+            <h1>Ошибка.</h1>
+            <button class="run-button" @click="handleRunClick">Попробовать еще раз.</button>
+          </div>
+          <div v-else>
+            <h1> Прогресс: {{progress}} %. </h1>
+            <h3 v-if="message"> Инфо: {{message}} </h3>
+          </div>
         </div>
-      </div>
-    </div>
-    <div v-else>
-      <h4> Сегодня уже производилась рассылка </h4>
     </div>
   </div>
 </template>
@@ -131,8 +130,7 @@ onMounted(async () => {
   display: flex;
 }
 
-.run-button {
-  background-color: green;
+.run-button, .delete-button {
   color: white;
   border: none;
   padding: 10px 20px;
@@ -140,6 +138,16 @@ onMounted(async () => {
   cursor: pointer;
   font-size: 16px;
   margin-top: 20px;
+  height: fit-content;
+}
+
+.run-button {
+  background-color: green;
+  margin-left: 5px;
+}
+
+.delete-button {
+  background-color: red;
 }
 
 .run-button:hover {
@@ -148,5 +156,17 @@ onMounted(async () => {
 
 .run-button:active {
   background-color: limegreen;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+.delete-button:active {
+  background-color: red;
+}
+
+.action-buttons {
+  display: inline-flex;
 }
 </style>

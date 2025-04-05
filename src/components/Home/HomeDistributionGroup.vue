@@ -35,13 +35,13 @@ const handleRunClick = async () => {
     if (response.status !== 200) {
       isError.value = true;
       isRunning.value = false;
-      showToast('Test message')
+      showToast('Сервис ответил неизвестным статусом. Обратитесь к разработчику.')
       return;
     }
   } catch (error) {
     isError.value = true;
     isRunning.value = false;
-    showToast('Test message')
+    showToast(error.message)
     return;
   }
 

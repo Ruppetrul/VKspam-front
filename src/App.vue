@@ -52,6 +52,7 @@ const toggleMenu = () => {
 .content {
   padding: 10px;
   width: 100vw;
+  align-content: center;
 }
 
 .container {

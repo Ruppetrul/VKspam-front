@@ -98,9 +98,12 @@ onMounted(async () => {
 </script>
 
 <template>
+
   <div class="home-distribution-group">
     <div class="group-summary">
-      <h1>{{ group.name }}</h1>
+      <router-link :to="{ name: 'group-detail', params: {id: group.id} }">
+        <h1>{{ group.name }}</h1>
+      </router-link>
       <h5>Текст: {{ group.description }}</h5>
       <h5>Только у кого ДР: {{ group.only_birthday_today }}</h5>
       <h5>Пол: {{ sexs[group.sex] }}</h5>

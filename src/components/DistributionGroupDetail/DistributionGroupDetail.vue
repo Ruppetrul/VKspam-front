@@ -4,6 +4,7 @@ import axios from "axios";
 import {useRoute} from "vue-router";
 import DistributionDetail from "@/components/DistributionGroupDetail/DistributionDetail.vue";
 import {sexs} from "@/js/sexs.js";
+import {showToast} from "@/js/toast.js";
 
 const distributionGroupId = useRoute().params.id;
 
@@ -50,6 +51,7 @@ const saveDescriptionText = async () => {
     );
     if (response.status === 200 && response.data.success) {
       distributionGroup.value.description = response.data.data.description;
+      showToast('Сохранено успешно');
     } else {
       error.value = 'Failed to fetch distribution groups';
     }
@@ -63,7 +65,7 @@ const saveDescriptionText = async () => {
 
 const save = async () => {
   if (!name.value) {
-    error.value = 'Name is required';
+    showToast('Поле название не заполнено')
     return;
   }
 
@@ -170,12 +172,12 @@ watchEffect(() => {
         <br>
         <b>Только тем, у кого день рождения сегодня:</b> <input name="birthday_filters" type="checkbox" v-model="onlyBirthdayToday"><br><br>
         <b>Только друзьям именинника:</b> <input name="birthday_filters" type="checkbox" v-model="onlyBirthdayFriends"><br><br>
-        <button @click="saveDescriptionText">Сохранить настройки</button>
+        <button id="save-settings" @click="saveDescriptionText">Сохранить настройки</button>
       </div>
       <div id="distribution_group_list_header">
         <h3>Связанные рассылки:</h3>
         <div class="distribution-manage-panel">
-          <button @click="openModal">Создать рассылку</button>
+          <button id="create-distribution-group" @click="openModal">Создать рассылку</button>
         </div>
       </div>
       <div v-if="isModalOpen" class="modal-overlay">
@@ -188,8 +190,8 @@ watchEffect(() => {
             <input name="name" type="text" placeholder="Ссылка" v-model="url"><br><br>
             <p v-if="error" class="error">{{ error }}</p>
             <div class="modal-actions">
-              <button @click="closeModal">Отмена</button>
-              <button type="submit" class="btn btn-primary">Создать</button>
+              <button id="create-distribution-cancel" @click="closeModal">Отмена</button>
+              <button id="create-distribution-approve" type="submit" class="btn btn-primary">Создать</button>
             </div>
           </form>
         </div>
@@ -199,7 +201,7 @@ watchEffect(() => {
           <DistributionDetail :distribution="distribution" :key="distribution.id" :deleteDistribution="deleteDistribution"/>
         </div>
       </div>
-      <h1 v-else>Рассылок не создано</h1>
+      <h1 v-else>Рассылки еще не созданы</h1>
     </div>
   </div>
 </template>
@@ -226,12 +228,52 @@ watchEffect(() => {
 
 .distribution-group {
   margin: 10px;
+  height: 100%;
 }
 
 .modal-overlay {
   margin: 10px;
   padding: 5px;
   border: #181818 1px solid;
+}
+
+#save-settings, #create-distribution-group, #create-distribution-approve, #create-distribution-cancel {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  height: fit-content;
+}
+
+#save-settings, #create-distribution-group, #create-distribution-approve {
+  background: green;
+}
+
+#create-distribution-cancel {
+  background: red;
+}
+
+#create-distribution-approve {
+  margin-left: 5pt;
+}
+
+#save-settings:hover, #create-distribution-group:hover, #create-distribution-approve:hover {
+  color: darkgreen;
+}
+
+#save-settings:active, #create-distribution-group:active, #create-distribution-approve:active {
+  color: green;
+}
+
+#create-distribution-cancel:hover {
+  color: darkred;
+}
+
+#create-distribution-cancel:active {
+  color: red;
 }
 
 </style>

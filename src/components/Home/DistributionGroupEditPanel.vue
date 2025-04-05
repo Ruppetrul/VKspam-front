@@ -1,6 +1,7 @@
 <script setup>
   import {reactive} from "vue";
   import {createDistributionGroup} from "@/js/createDistributionGroup.js";
+  import {showToast} from "@/js/toast.js";
 
   const props = defineProps({
     isOpen: Boolean,
@@ -12,13 +13,12 @@
     selectedSex: 0,
     onlyBirthdayToday: 0,
     onlyBirthdayFriends: 0,
-    error: ''
   });
   const emit = defineEmits(['close'])
 
   const save = async () => {
       if (!formState.name) {
-        formState.error = 'Name is required';
+        showToast('Поле название не заполнено')
         return;
       }
 
@@ -28,11 +28,10 @@
           props.addDistributionGroup(response.data.data)
           emit('close');
         } else {
-          formState.error = 'Failed to save distribution group';
+          showToast('Ошибка при сохранении группы')
         }
       } catch (err) {
-        formState.error = err.response?.data?.message ?? 'An error occurred: ' + err.message;
-        console.error('Failed to create distribution group:', err);
+        showToast(err.message);
       }
   }
 </script>
@@ -50,7 +49,6 @@
       <input name="birthday" type="radio" v-model="formState.onlyBirthdayToday" value="0"><br><br>
       <h3>Рассылка друзьям именинника (лучше делать заблаговременно):</h3>
       <input name="birthday" type="radio" v-model="formState.onlyBirthdayFriends" value="0"><br><br>
-      <p v-if="formState.error" class="error">{{ formState.error }}</p>
       <div class="modal-actions">
         <button class="distribution-edit-cancel" @click="$emit('close')">Отмена</button>
         <button type="submit" class="btn btn-primary distribution-edit-approve">Создать</button>

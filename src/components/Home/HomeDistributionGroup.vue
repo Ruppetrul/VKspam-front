@@ -19,6 +19,7 @@ const props = defineProps({
     sex: Number,
     last_processing: String,
   },
+  delete: Function
 });
 
 const sexs = {
@@ -103,6 +104,7 @@ onMounted(async () => {
       <h5> Последняя рассылка: {{group.last_processing}} </h5>
     </div>
 
+    <button class="delete-button" @click="props.delete(group.id)">×</button>
     <div v-if="!todayProcessed">
       <button v-if="!isRunning" class="run-button" @click="handleRunClick">Запустить</button>
       <div v-else>

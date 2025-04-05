@@ -23,11 +23,6 @@ const toggleMenu = () => {
           </router-link>
         </li>
         <li class="menu-item">
-          <router-link :to="{ name: 'distribution-groups' }">
-            <span v-if="isMenuExpanded" >Группы рассылок</span>
-          </router-link>
-        </li>
-        <li class="menu-item">
           <router-link :to="{ name: 'logout' }">
             <span v-if="isMenuExpanded">Выйти</span>
           </router-link>

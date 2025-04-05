@@ -3,6 +3,7 @@ import {onMounted, ref} from "vue";
 import {fetchDistributionGroups} from "@/js/fetchDistributionGroups.js";
 import HomeDistributionGroup from "@/components/Home/HomeDistributionGroup.vue";
 import DistributionGroupEditPanel from "@/components/Home/DistributionGroupEditPanel.vue";
+import {deleteDistributionGroup} from "@/js/deleteDistributionGroup.js";
 
 const isLoading = ref(true);
 const showModal = ref(false);
@@ -20,6 +21,23 @@ onMounted(async () => {
   isLoading.value = false;
 });
 
+const deleteGroup = async (id) => {
+  try {
+    const response = await deleteDistributionGroup(id)
+
+    if (response.status === 200) {
+      distributionGroups.value = distributionGroups.value.filter(
+          group => group.id !== id
+      )
+      if (distributionGroups.value.length === 0) {
+        distributionGroups.value = null;
+      }
+    }
+  } catch (err) {
+
+  }
+}
+
 </script>
 
 <template>
@@ -35,7 +53,7 @@ onMounted(async () => {
   <DistributionGroupEditPanel></DistributionGroupEditPanel>
   <div v-if="distributionGroups">
     <div id="distributionGroups" v-for="distributionGroup in distributionGroups">
-      <HomeDistributionGroup :group="distributionGroup"></HomeDistributionGroup>
+      <HomeDistributionGroup :group="distributionGroup" :delete="deleteGroup"></HomeDistributionGroup>
     </div>
   </div>
   <div v-else>

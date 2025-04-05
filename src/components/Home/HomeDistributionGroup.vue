@@ -131,6 +131,7 @@ onMounted(async () => {
 .home-distribution-group {
   justify-content: space-between;
   display: flex;
+  margin-top: 10pt;
 }
 
 .run-button, .delete-button {

@@ -89,7 +89,7 @@ const toggleMenu = () => {
 
 .sidebar-item {
   font-size: 18px;
-  color: white;
+  color: black;
 }
 
 </style>

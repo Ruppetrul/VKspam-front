@@ -70,6 +70,7 @@ const deleteGroup = async (id) => {
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
+    color: white;
   }
 
   #createDistributionsButton:hover {
@@ -82,5 +83,10 @@ const deleteGroup = async (id) => {
 
   #distribution_group_list_body {
     height: 100%;
+  }
+
+  .distribution-manage-panel {
+    border-left: ridge;
+    padding-left: 5pt;
   }
 </style>

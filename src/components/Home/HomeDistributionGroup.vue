@@ -79,17 +79,17 @@ onMounted(async () => {
       processingDate.getMonth() === today.getMonth() &&
       processingDate.getDate() === today.getDate();
 
-  var value = await getProgress(props.group.id);
-  if (value > -1) {
-    isRunning.value = true;
-    const interval = setInterval(async function () {
-      progress.value = await getProgress(props.group.id);
-      if (progress.value < 0) {
-        clearInterval(interval);
-        isRunning.value = false;
-      }
-    }, 3000)
-  }
+  const interval = setInterval(async function () {
+    const result = await getProgress(props.group.id);
+    progress.value = result.Progress;
+
+    if (progress.value < 0) {
+      clearInterval(interval);
+      isRunning.value = false;
+    } else {
+      isRunning.value = true;
+    }
+  }, 3000)
 });
 </script>
 
@@ -107,20 +107,20 @@ onMounted(async () => {
     </div>
 
     <div class="action-buttons">
-      <button class="delete-button" @click="props.delete(group.id)">
+      <button v-if="!isRunning" class="delete-button" @click="props.delete(group.id)">
 Удалить
       </button>
-        <button v-if="!isRunning && !todayProcessed" class="run-button" @click="handleRunClick">Запустить</button>
-        <div v-else>
-          <div v-if="progress === -2">
-            <h1>Ошибка.</h1>
-            <button class="run-button" @click="handleRunClick">Попробовать еще раз.</button>
-          </div>
-          <div v-else>
-            <h1> Прогресс: {{progress}} %. </h1>
-            <h3 v-if="message"> Инфо: {{message}} </h3>
-          </div>
+      <button v-if="!isRunning && !todayProcessed" class="run-button" @click="handleRunClick">Запустить</button>
+      <div v-else-if="isRunning">
+        <div v-if="progress === -2">
+          <h1>Ошибка.</h1>
+          <button class="run-button" @click="handleRunClick">Попробовать еще раз.</button>
         </div>
+        <div v-else>
+          <h1> Прогресс: {{progress}} %. </h1>
+          <h3 v-if="message"> Инфо: {{message}} </h3>
+        </div>
+      </div>
     </div>
   </div>
 </template>

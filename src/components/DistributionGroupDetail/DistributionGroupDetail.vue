@@ -163,6 +163,7 @@ watchEffect(() => {
       <div id="distribution_group_panel">
         <h1> Название: {{ distributionGroup.name }} </h1> <br>
         <h3> Текст рассылки: </h3>
+        <h5> *Вставте %USERNAME% чтобы ссылка на нужного пользователя автоматически подставилась в ваше сообщение. Например "У вашего друга %USERNAME% сегодня день рождения! Вы можете подарить ему ... " будет формировать сообщение для рассылки: "У вашего друга Петров Иван сегодня день рождения! Вы можете подарить ему ... ": </h5>
         <textarea id="distribution_group_text" v-model="distributionGroup.description">{{distributionGroup.description}}</textarea>
         <br>
         <h3>Пол: {{ sexs[distributionGroup.sex] }}</h3>

@@ -66,10 +66,6 @@ const handleRunClick = async () => {
         isRunning.value = false;
         clearInterval(interval);
         break;
-      case 100:
-        isRunning.value = false;
-        clearInterval(interval);
-        break;
     }
   }, 3000)
 };
@@ -88,7 +84,7 @@ onMounted(async () => {
     isRunning.value = true;
     const interval = setInterval(async function () {
       progress.value = await getProgress(props.group.id);
-      if (progress.value < 0 || progress.value === 100) {
+      if (progress.value < 0) {
         clearInterval(interval);
         isRunning.value = false;
       }

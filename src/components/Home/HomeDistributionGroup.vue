@@ -117,8 +117,8 @@ onMounted(async () => {
           <button class="run-button" @click="handleRunClick">Попробовать еще раз.</button>
         </div>
         <div v-else>
-          <h1> Прогресс: {{progress}} %. </h1>
-          <h3 v-if="message"> Инфо: {{message}} </h3>
+          <h2 v-if="message"> Инфо: {{message}} </h2>
+          <h3> Прогресс по текущей задаче: {{progress}} %. </h3>
         </div>
       </div>
     </div>
